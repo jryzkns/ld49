@@ -1,0 +1,12 @@
+backlog.txt
+
+# work
+**/work/
+
+# pycache dirs
+**/__pycache__/
+
+# pyinstaller intermediaries
+*.spec
+build/
+dist/
