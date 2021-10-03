@@ -5,8 +5,7 @@ from utils import *
 class Wind:
     def __init__(self, world_w, world_h):
         self.w, self.h = world_w, world_h
-        self.reset_field()
-        self.perturb()
+        self.reset()
 
         self.mx, self.my = 0, 0
         self.streakable = True
@@ -14,27 +13,25 @@ class Wind:
         self.streak_buffer = []
         self.streak_surf = pg.Surface(RES, flags=pg.SRCALPHA)
 
-        self.change_timer = 0
+    def reset(self):
+        self.blank_field()
+        self.perturb()
 
-    def reset_field(self):
+    def blank_field(self):
         self.wind_map = [ [ (0,0)
                     for _ in range(3 + (self.h // WIND_RESOLUTION)) ]
                     for _ in range(3 + (self.w // WIND_RESOLUTION)) ]
 
-    def perturb(self, sparse_factor = 3):
-        for i in range(0, 3 + (self.h // WIND_RESOLUTION), sparse_factor):
-            for j in range(0, 3 + (self.w // WIND_RESOLUTION), sparse_factor):
-                self.wind_map[j][i] = random_direction()
+    def perturb(self):
+        for i in range(3 + (self.h // WIND_RESOLUTION)):
+            for j in range(3 + (self.w // WIND_RESOLUTION)):
+                self.wind_map[j][i] = \
+                    clip_norm(*add(*self.wind_map[j][i], *random_direction()),2)
 
     def register_md(self):
         self.mx, self.my = pg.mouse.get_pos()
 
     def update(self, dt):
-
-        self.change_timer += dt
-        if self.change_timer > WIND_CHANGE_TIME:
-            self.change_timer -= WIND_CHANGE_TIME
-            self.perturb()
 
         self.decay_timer += dt
         if len(self.streak_buffer) > 0 and self.decay_timer > STREAK_DECAY_TIME:
@@ -46,10 +43,10 @@ class Wind:
             v = translate(mx, my, self.mx, self.my)
             self.streak_buffer += ((mx, my), (self.mx, self.my)),
             self.streak_buffer = self.streak_buffer[-500:]
-            self.wind_map[head_x    ][head_y    ] = clip_norm(*v)
-            self.wind_map[head_x + 1][head_y    ] = clip_norm(*v, 3)
-            self.wind_map[head_x    ][head_y + 1] = clip_norm(*v, 3)
-            self.wind_map[head_x + 1][head_y + 1] = clip_norm(*v, 0.5)
+            self.wind_map[head_x    ][head_y    ] = clip_norm(*add(*self.wind_map[head_x    ][head_y    ], *v))
+            self.wind_map[head_x + 1][head_y    ] = clip_norm(*add(*self.wind_map[head_x + 1][head_y    ], *v), 3)
+            self.wind_map[head_x    ][head_y + 1] = clip_norm(*add(*self.wind_map[head_x    ][head_y + 1], *v), 3)
+            self.wind_map[head_x + 1][head_y + 1] = clip_norm(*add(*self.wind_map[head_x + 1][head_y + 1], *v), 0.5)
             self.mx, self.my = mx, my
 
     def wind_at(self, x, y):

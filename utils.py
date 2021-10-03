@@ -40,3 +40,6 @@ def normalize(x, y):
     if vn == 0:
         return 0, 0
     return x/vn, y/vn
+
+def add(x1, y1, x2, y2):
+    return x1 + x2, y1 + y2

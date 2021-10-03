@@ -8,6 +8,10 @@ class Particles(list):
         self.window_bound = pg.Rect(0, 0, w, h)
 
     def update(self, wind, dt):
+        if len(self) > MAX_PETALS:
+            for _ in range(len(self) - MAX_PETALS):
+                self.pop()
+
         for idx, particle in enumerate(self):
             particle_hitbox = particle.hitbox()
             particle.update(wind.wind_at(*particle_hitbox.center), dt)
