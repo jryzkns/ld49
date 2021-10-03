@@ -36,3 +36,5 @@ GET_SIZED_FONT = lambda pts : Font(asset("orange-kid.regular.ttf"), pts)
 TEXT_INIT = 0
 TEXT_REVEAL = 1
 TEXT_GOODBYE = 2
+
+GAME_NAME = "The Wind Rises"

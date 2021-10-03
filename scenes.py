@@ -35,11 +35,8 @@ def title(game_win):
 
     wind = Wind(*RES)
     petals = Particles(*RES)
-    title = render_text(["<GAME TITLE>"], start_h=25, size=36)[0]
-    prompt = render_text(["CLICK ANYWHERE TO CONTINUE"], start_h = 75)[0]
-
-    bgm = pg.mixer.music.load(asset("title.ogg"))
-    pg.mixer.music.play(-1)
+    title = render_text(["The Wind Rises"], start_h=25, size=36)[0]
+    prompt = render_text(["BY JACK `JRYZKNS` ZHOU", "CLICK ANYWHERE TO CONTINUE"], start_h = 75)
 
     running, dt = True, 0
     prev = time.time()
@@ -57,7 +54,8 @@ def title(game_win):
         petals.draw(game_win)
 
         game_win.blit(*title)
-        game_win.blit(*prompt)
+        for line in prompt:
+            game_win.blit(*line)
 
         pg.display.flip()
 
@@ -69,8 +67,6 @@ def title(game_win):
         petals.update(wind, dt)
 
         prev = now
-
-    pg.mixer.music.stop()
 
 def credits(game_win):
 

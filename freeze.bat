@@ -4,6 +4,6 @@ pyinstaller ^
     --noconfirm ^
     --noconsole ^
     --onefile ^
-    --name "wat" ^
+    --name "TWR" ^
     --icon=icon.ico ^
     main.py

@@ -14,10 +14,10 @@ def memory_collection():
                 'pos' : (550, 200),
                 'spawn_box' : Rect(0, 200, 5, RES[1] - 200),
                 'text' : [
-                    "CLICK AND DRAG, LET THE WINDS ARISE\n"
+                    "CLICK AND DRAG, LET THE WINDS RISE\n"
                     "TO CONTROL THE FLOW IS TO REMINISCE;\n"
                     "THE PETALS SHALL FLOW TO THE HIDDEN MEMORY\n"
-                    "BRING IT TO LIGHT.\n\n"
+                    "BRING IT FORTH TO SEE IT AGAIN\n\n"
                     "PS. PRESS ESC TO EXIT GAME\n"
                     "PRESS LEFT CTRL TO TOGGLE MOUSE INSIDE WINDOW",
                     "WHEN THE PETALS HAVE FINISHED FALLING\n"

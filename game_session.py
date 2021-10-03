@@ -59,7 +59,4 @@ def game_session(game_win):
             if memory is None:
                 running = False
 
-        pg.display.set_caption(
-            f"petals:{len(petals)} fps: {round(1 / (now - prev), 2) if dt !=0 else 0}")
-
         prev = now

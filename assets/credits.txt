@@ -1,4 +1,4 @@
-<GAME TITLE>
+The Wind Rises
             --- in submission to Ludum Dare 49
     Creator:
         Jack `jryzkns` Zhou
