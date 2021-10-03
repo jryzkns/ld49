@@ -8,12 +8,10 @@ from petal import Petal
 from particles import Particles
 from memory_collection import memory_collection
 
-def game_session():
+def game_session(game_win):
 
     wind = Wind(*RES)
     petals = Particles(*RES)
-
-    game_win = pg.display.set_mode(RES, pg.SRCALPHA)
 
     running, dt = True, 0
     prev = time.time()
@@ -38,13 +36,9 @@ def game_session():
                     wind.reset()
 
         game_win.fill(BLACK)
-        
         memory.draw(game_win)
         petals.draw(game_win)
-
-        wind.draw(game_win)
         memory.UI(game_win)
-
         pg.display.flip()
 
         now = time.time()
@@ -53,19 +47,15 @@ def game_session():
         wind.update(dt)
         petals.update(wind, dt)
 
-        in_count = 0
+        in_count, memory_hb = 0, memory.hitbox()
         for petal in petals:
-            in_count += memory.hitbox().colliderect(petal.hitbox())
-        
-        reveal_state = memory.revealed
+            in_count += memory_hb.colliderect(petal.hitbox())
+                
         memory.update(in_count, dt)
-        if memory.revealed != reveal_state:
-            wind.streakable = False
         if not memory.revealed:
             petals.emit_box(Petal, 1, memory.spawn_box)
         if memory.complete() and len(petals) == 0:
             memory = next(memories, None)
-            wind.streakable = True
             if memory is None:
                 running = False
 

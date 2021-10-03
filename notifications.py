@@ -32,7 +32,7 @@ class Notifications:
         else:
             self.msg_timer += dt
 
-    def post(self, msg, x, y, align_bot = False, time = MSG_EXPIRY):
+    def post(self, msg, x = 0, y = 0, align_bot = False, time = MSG_EXPIRY):
         self.text_start_x, self.text_start_y = x, y
         if align_bot:
             lines = msg.count('\n') + 1

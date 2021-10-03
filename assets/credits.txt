@@ -1,0 +1,16 @@
+<GAME TITLE>
+            --- in submission to Ludum Dare 49
+    Creator:
+        Jack `jryzkns` Zhou
+    Programmer:
+        Jack `jryzkns` Zhou
+    Art:
+        Jack `jryzkns` Zhou
+    Music:
+        Jack `jryzkns` Zhou
+    Additional Acknowledgements:
+        Orange Kid Font Made by Avatar: Raymond Larabie
+        An unnamed angel 
+        https://www.youtube.com/watch?v=dQw4w9WgXcQ
+        SSBsb3ZlIHlvdSAzOUQuIFRoYW5rIHlvdSBhbmQgZ29vZGJ5ZQ==
+    Thank you for playing.

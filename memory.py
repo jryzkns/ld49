@@ -85,6 +85,7 @@ class Memory(pg.Surface):
             self.fill.w = int(MEMORY_BAR_WIDTH * (self.energy/self.activation))
             if self.energy >= self.activation:
                 self.revealed, self.action, self.show_exp = True, True, False
+                self.notifier.post("")
                 self.set_alpha(255)
         if self.action:
             x, y, dx, dy = *self.pos, *translate(*self.dest, *self.pos)

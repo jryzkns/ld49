@@ -19,9 +19,9 @@ class Petal:
             xv = random.uniform(20, 100) * xcos
             yv = random.uniform(20, 60) * ysin
         elif yv is None:
-            yv = random.uniform(-60, 60)
+            yv = random.uniform(-50, 50)
         elif xv is None:
-            xv = random.uniform(-100, 100)
+            xv = random.uniform(-80, 80)
         self.xvel, self.yvel = xv, yv
         
         self.lifetime = random.uniform(5, 7)
@@ -37,9 +37,6 @@ class Petal:
         self.lifetime -= dt
 
         wind_xaccel, wind_yaccel = wind_snapshot
-        # self.xvel += wind_xaccel
-        # self.yvel += wind_yaccel + GRAVITY
-
         self.xvel = min(PETAL_MAX_XVEL, self.xvel + wind_xaccel)
         self.yvel = min(PETAL_MAX_YVEL, self.yvel + wind_yaccel + GRAVITY)
 

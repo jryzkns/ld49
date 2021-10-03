@@ -8,7 +8,7 @@ except Exception:
 
 asset = lambda fn : join(BASE_PATH, 'assets', fn)
 
-RES = (1200, 600)
+RES = (900, 600)
 MAX_FPS = 60
 
 TRANSPARENT = (0, 0, 0, 0)
@@ -23,12 +23,11 @@ MEMORY_MOVE_SPEED = 100
 MEMORY_BAR_WIDTH = 600
 
 WIND_RESOLUTION = 75
-STREAK_DECAY_TIME = 0.15
-
-PETAL_MAX_XVEL = 300
-PETAL_MAX_YVEL = 300
+WIND_CHANGE_TIME = 10
 
 MAX_PETALS = 200
+PETAL_MAX_XVEL = 300
+PETAL_MAX_YVEL = 300
 
 MSG_EXPIRY = 10
 from pygame.font import Font

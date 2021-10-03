@@ -8,10 +8,7 @@ class Wind:
         self.reset()
 
         self.mx, self.my = 0, 0
-        self.streakable = True
-        self.decay_timer = 0
-        self.streak_buffer = []
-        self.streak_surf = pg.Surface(RES, flags=pg.SRCALPHA)
+        self.update_timer = 0
 
     def reset(self):
         self.blank_field()
@@ -22,27 +19,24 @@ class Wind:
                     for _ in range(3 + (self.h // WIND_RESOLUTION)) ]
                     for _ in range(3 + (self.w // WIND_RESOLUTION)) ]
 
-    def perturb(self):
-        for i in range(3 + (self.h // WIND_RESOLUTION)):
-            for j in range(3 + (self.w // WIND_RESOLUTION)):
+    def perturb(self, spacing=1):
+        for i in range(0, 3 + (self.h // WIND_RESOLUTION), spacing):
+            for j in range(0, 3 + (self.w // WIND_RESOLUTION), spacing):
                 self.wind_map[j][i] = \
-                    clip_norm(*add(*self.wind_map[j][i], *random_direction()),2)
+                    clip_norm(*add(*self.wind_map[j][i], *random_direction()), 2)
 
     def register_md(self):
         self.mx, self.my = pg.mouse.get_pos()
 
     def update(self, dt):
-
-        self.decay_timer += dt
-        if len(self.streak_buffer) > 0 and self.decay_timer > STREAK_DECAY_TIME:
-            self.streak_buffer = self.streak_buffer[5:]
-            self.decay_timer -= STREAK_DECAY_TIME
+        self.update_timer += dt
+        if self.update_timer > WIND_CHANGE_TIME:
+            self.update_timer -= WIND_CHANGE_TIME
+            self.perturb(3)
         if any(pg.mouse.get_pressed()):
             mx, my = pg.mouse.get_pos()
             head_x, head_y = 1 + mx // WIND_RESOLUTION, 1 + my // WIND_RESOLUTION
             v = translate(mx, my, self.mx, self.my)
-            self.streak_buffer += ((mx, my), (self.mx, self.my)),
-            self.streak_buffer = self.streak_buffer[-500:]
             self.wind_map[head_x    ][head_y    ] = clip_norm(*add(*self.wind_map[head_x    ][head_y    ], *v))
             self.wind_map[head_x + 1][head_y    ] = clip_norm(*add(*self.wind_map[head_x + 1][head_y    ], *v), 3)
             self.wind_map[head_x    ][head_y + 1] = clip_norm(*add(*self.wind_map[head_x    ][head_y + 1], *v), 3)
@@ -58,10 +52,3 @@ class Wind:
         top = translate(*Q2, *scale(*translate(*Q1, *Q2), tail_x / WIND_RESOLUTION))
         bot = translate(*Q3, *scale(*translate(*Q4, *Q3), tail_x / WIND_RESOLUTION))
         return translate(*top, *scale(*translate(*bot, *top), tail_y / WIND_RESOLUTION))
-
-    def draw(self, surf):
-        if self.streakable:
-            self.streak_surf.fill(TRANSPARENT)
-            for line in self.streak_buffer:
-                pg.draw.line(self.streak_surf, (*WHITE, 80), *line, 10)
-            surf.blit(self.streak_surf,(0,0))
