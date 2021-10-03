@@ -66,6 +66,5 @@ class Wind:
         if self.streakable:
             self.streak_surf.fill(TRANSPARENT)
             for line in self.streak_buffer:
-                pg.draw.line(self.streak_surf, (*WHITE, 20), *line, 52)
                 pg.draw.line(self.streak_surf, (*WHITE, 80), *line, 10)
             surf.blit(self.streak_surf,(0,0))
