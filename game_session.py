@@ -1,3 +1,4 @@
+import asyncio
 from definitions import *
 import pygame as pg
 import sys
@@ -8,7 +9,7 @@ from petal import Petal
 from particles import Particles
 from memory_collection import memory_collection
 
-def game_session(game_win):
+async def game_session(game_win):
 
     wind = Wind(*RES)
     petals = Particles(*RES)
@@ -60,3 +61,4 @@ def game_session(game_win):
                 running = False
 
         prev = now
+        await asyncio.sleep(0)

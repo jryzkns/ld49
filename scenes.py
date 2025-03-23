@@ -1,3 +1,4 @@
+import asyncio
 from definitions import *
 import pygame as pg
 
@@ -31,7 +32,7 @@ def render_text(TEXT, start_h = None, color = WHITE, size = 24):
         text_lines += [(rendered_line, textRect)]
     return text_lines
 
-def title(game_win):
+async def title(game_win):
 
     wind = Wind(*RES)
     petals = Particles(*RES)
@@ -67,8 +68,9 @@ def title(game_win):
         petals.update(wind, dt)
 
         prev = now
+        await asyncio.sleep(0)
 
-def credits(game_win):
+async def credits(game_win):
 
     wind = Wind(*RES)
     petals = Particles(*RES)
@@ -104,3 +106,4 @@ def credits(game_win):
         petals.update(wind, dt)
 
         prev = now
+        await asyncio.sleep(0)
